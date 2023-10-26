@@ -22,12 +22,12 @@ jobs:
           override: true
 
       - name: Build
-        run: cargo build --all --release && strip target/release/mutiny-data-recovery && mv target/release/mutiny-data-recovery target/release/mutiny-data-recovery_amd64
+        run: cargo build --all --release
 
       - name: Upload release asset
         uses: actions/upload-artifact@v3
         with:
-          path: target/release/mutiny-data-recovery_amd64
+          path: target/release/mutiny-data-recovery
           name: mutiny-data-recovery_amd64
 
   build-win:
@@ -69,10 +69,10 @@ jobs:
           override: true
 
       - name: Build for mac
-        run: cargo build --all --release && strip target/release/mutiny-data-recovery && mv target/release/mutiny-data-recovery target/release/mutiny-data-recovery_darwin
+        run: cargo build --all --release
 
       - name: Upload release asset
         uses: actions/upload-artifact@v3
         with:
-          path: target/release/mutiny-data-recovery_darwin
+          path: target/release/mutiny-data-recovery
           name: mutiny-data-recovery_darwin
