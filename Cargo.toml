@@ -8,6 +8,10 @@ license = "MIT"
 homepage = "https://github.com/mutinywallet/mutiny-data-recovery"
 repository = "https://github.com/mutinywallet/mutiny-data-recovery"
 
+[[bin]]
+name = "mutiny-data-recovery"
+path = "src/main.rs"
+
 [dependencies]
 anyhow = "1.0"
 bip39 = "2.0.0"
