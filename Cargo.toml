@@ -2,6 +2,11 @@
 name = "mutiny-data-recovery"
 version = "0.1.0"
 edition = "2021"
+authors = ["benthecarman <ben@mutinywallet.com>"]
+description = "A tool for recovering Mutiny Wallets that end up in an unrecoverable state"
+license = "MIT"
+homepage = "https://github.com/mutinywallet/mutiny-data-recovery"
+repository = "https://github.com/mutinywallet/mutiny-data-recovery"
 
 [dependencies]
 anyhow = "1.0"
