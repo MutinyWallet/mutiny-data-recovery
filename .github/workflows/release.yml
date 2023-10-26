@@ -2,8 +2,9 @@ name: Release
 
 on:
   workflow_dispatch:
-  release:
-    types: [published]
+  push:
+    tags:
+      - "v*.*.*"
 
 jobs:
   build:
@@ -23,14 +24,11 @@ jobs:
       - name: Build
         run: cargo build --all --release && strip target/release/mutiny-data-recovery && mv target/release/mutiny-data-recovery target/release/mutiny-data-recovery_amd64
 
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
+      - name: Upload release asset
+        uses: actions/upload-artifact@v3
         with:
-          files: |
-            target/release/mutiny-data-recovery_amd64
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          path: target/release/mutiny-data-recovery_amd64
+          name: mutiny-data-recovery_amd64
 
   build-win:
     runs-on: windows-latest
@@ -49,13 +47,11 @@ jobs:
       - name: Build
         run: cargo build --all --release
 
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
+      - name: Upload release asset
+        uses: actions/upload-artifact@v3
         with:
-          files: target/release/mutiny-data-recovery.exe
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          path: target/release/mutiny-data-recovery.exe
+          name: mutiny-data-recovery.exe
 
   build-mac:
     runs-on: macos-latest
@@ -75,11 +71,8 @@ jobs:
       - name: Build for mac
         run: cargo build --all --release && strip target/release/mutiny-data-recovery && mv target/release/mutiny-data-recovery target/release/mutiny-data-recovery_darwin
 
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
+      - name: Upload release asset
+        uses: actions/upload-artifact@v3
         with:
-          files: |
-            target/release/mutiny-data-recovery_darwin
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          path: target/release/mutiny-data-recovery_darwin
+          name: mutiny-data-recovery_darwin
