@@ -1,8 +1,8 @@
 use crate::config::Config;
-use bitcoin::util::bip32::ExtendedPrivKey;
-use bitcoin::Network;
 use clap::Parser;
 use mutiny_core::auth::MutinyAuthClient;
+use mutiny_core::bitcoin::bip32::ExtendedPrivKey;
+use mutiny_core::bitcoin::Network;
 use mutiny_core::lnurlauth::AuthManager;
 use mutiny_core::logging::MutinyLogger;
 use mutiny_core::vss::MutinyVssClient;
