@@ -8,5 +8,5 @@ from the channels.
 
 ```bash
 cargo install mutiny-data-recovery
-mutiny-data-recovery --seed "your seed here"
+mutiny-data-recovery
 ```

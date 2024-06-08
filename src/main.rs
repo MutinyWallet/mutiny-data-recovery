@@ -6,6 +6,8 @@ use mutiny_core::bitcoin::Network;
 use mutiny_core::lnurlauth::AuthManager;
 use mutiny_core::logging::MutinyLogger;
 use mutiny_core::vss::MutinyVssClient;
+use std::io::Write;
+use std::str::FromStr;
 use std::sync::Arc;
 
 mod config;
@@ -14,8 +16,23 @@ mod config;
 async fn main() -> anyhow::Result<()> {
     let logger = Arc::new(MutinyLogger::default());
     let config: Config = Config::parse();
-    let seed = config.seed.to_seed("");
-    let xprivkey = ExtendedPrivKey::new_master(Network::Bitcoin, &seed).unwrap();
+
+    // Create a mutable string to store the user input
+    let mut input = String::new();
+
+    // Prompt the user for input
+    print!("Enter your mnemonic seed: ");
+    // Flush stdout to ensure the prompt is displayed before input is read
+    std::io::stdout().flush()?;
+
+    // Read the input from stdin and handle potential errors
+    std::io::stdin()
+        .read_line(&mut input)
+        .expect("Failed to read line");
+
+    let seed = bip39::Mnemonic::from_str(input.trim())?;
+
+    let xprivkey = ExtendedPrivKey::new_master(Network::Bitcoin, &seed.to_seed("")).unwrap();
 
     let auth_manager = AuthManager::new(xprivkey).unwrap();
 
@@ -67,7 +84,7 @@ async fn main() -> anyhow::Result<()> {
     // put the new objects back
     vss.put_objects(new_objects).await?;
 
-    println!("Done! Open Mutiny Wallet and your channels should force close.");
+    println!("\nDone! Open Mutiny Wallet and your channels should force close and be recoverable on-chain in 3-14 days.");
 
     Ok(())
 }
