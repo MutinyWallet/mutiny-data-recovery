@@ -6,7 +6,12 @@ from the channels.
 
 ## Usage
 
+First install the binary from the [releases page](https://github.com/mutinywallet/mutiny-data-recovery/releases).
+
+then run with:
+
 ```bash
-cargo install mutiny-data-recovery
 mutiny-data-recovery
 ```
+
+It will prompt you to enter your seed and this will get your wallet into a recoverable state.
